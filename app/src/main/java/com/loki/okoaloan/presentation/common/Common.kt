@@ -22,25 +22,24 @@ import androidx.compose.ui.unit.dp
 fun Input(
     placeholder: String,
     label: String,
-    value: (String) -> Unit,
+    value: String,
+    onValueChange: (String) -> Unit,
+    errorMessage: String,
+    isError: Boolean,
     keyboardType: KeyboardType = KeyboardType.Text
 ) {
 
-    var valueInput by remember {
-        mutableStateOf("")
-    }
 
     var passwordVisible by remember {
         mutableStateOf(false)
     }
 
-
     TextField(
-        value = valueInput,
+        value = value,
         onValueChange = {
-            valueInput = it
-            value(it)
+            onValueChange(it)
         },
+        isError = isError,
         label = {
             Text(text = label, modifier = Modifier.padding(bottom = 8.dp))
         },
@@ -72,6 +71,10 @@ fun Input(
             }
         }
     )
+
+    if (isError) {
+        Text(text = errorMessage, color = Color.Red)
+    }
 
 }
 

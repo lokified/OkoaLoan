@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.dsc.form_builder.TextFieldState
 import com.loki.okoaloan.presentation.Screens
 import com.loki.okoaloan.presentation.common.ButtonSection
 import com.loki.okoaloan.presentation.common.Input
@@ -87,35 +88,43 @@ fun LoginFormSection(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
+    val viewModel = AuthViewModel()
 
     val keyboardController = LocalSoftwareKeyboardController.current
+    val formState = remember { viewModel.loginFormState }
+
+    val phone = formState.getState<TextFieldState>("Phone")
+    val password = formState.getState<TextFieldState>("Password")
 
     Box(modifier = modifier.fillMaxSize()) {
 
         Column {
-            var phone: String? = null
-            var password: String? = null
 
             Input(
                 placeholder = "Enter your phone number",
                 label = "Phone",
-                value = {
-                    phone = it
-                }
+                value = phone.value,
+                onValueChange = { phone.change(it) },
+                errorMessage = phone.errorMessage,
+                isError = phone.hasError
             )
 
             Input(
                 placeholder = "Enter your password",
                 label = "Password",
-                value = {
-                    password = it
-                },
-                keyboardType = KeyboardType.Password
+                value = password.value,
+                onValueChange = { password.change(it) },
+                keyboardType = KeyboardType.Password,
+                errorMessage = password.errorMessage,
+                isError = password.hasError
             )
 
             ButtonSection(label = "Login") {
                 keyboardController?.hide()
-                navController.navigate(Screens.HomeScreen.route)
+
+                if (formState.validate()) {
+                    navController.navigate(Screens.HomeScreen.route)
+                }
             }
         }
     }
@@ -126,45 +135,54 @@ fun LoginFormSection(
 fun SignUpFormSection(
     modifier: Modifier = Modifier
 ) {
+    val viewModel = AuthViewModel()
 
     val keyboardController = LocalSoftwareKeyboardController.current
+    val formState = remember { viewModel.registerFormState }
+
+    val phone = formState.getState<TextFieldState>("Phone")
+    val password = formState.getState<TextFieldState>("Password")
+    val conPassword = formState.getState<TextFieldState>("Confirm Password")
 
     Box(modifier = modifier.fillMaxSize()) {
 
         Column {
 
-            var phone: String? = null
-            var password: String? = null
-            var conPassword: String? = null
-
             Input(
                 placeholder = "Enter your phone number",
                 label = "Phone",
-                value = {
-                    phone = it
-                }
+                value = phone.value,
+                onValueChange = { phone.change(it) },
+                errorMessage = phone.errorMessage,
+                isError = phone.hasError
             )
 
             Input(
                 placeholder = "Enter your password",
                 label = "Password",
-                value = {
-                    password = it
-                },
-                keyboardType = KeyboardType.Password
+                value = password.value,
+                onValueChange = { password.change(it) },
+                keyboardType = KeyboardType.Password,
+                errorMessage = password.errorMessage,
+                isError = password.hasError
             )
 
             Input(
                 placeholder = "Confirm Password",
                 label = "Confirm Password",
-                value = {
-                    conPassword = it
-                },
-                keyboardType = KeyboardType.Password
+                value = conPassword.value,
+                onValueChange = { conPassword.change(it) },
+                keyboardType = KeyboardType.Password,
+                errorMessage = conPassword.errorMessage,
+                isError = conPassword.hasError
             )
 
             ButtonSection(label = "Register") {
                 keyboardController?.hide()
+
+                if (formState.validate()) {
+
+                }
             }
 
 

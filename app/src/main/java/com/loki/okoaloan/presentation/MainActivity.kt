@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.loki.okoaloan.presentation.change_password.ChangePasswordScreen
 import com.loki.okoaloan.presentation.get_started.GetStartedScreen
 import com.loki.okoaloan.presentation.home.HomeScreen
+import com.loki.okoaloan.presentation.loan_application.LoanApplicationScreen
 import com.loki.okoaloan.presentation.loan_history.LoanHistoryScreen
 import com.loki.okoaloan.presentation.splash_screen.SplashScreen
 import com.loki.okoaloan.presentation.ui.theme.OkoaLoanTheme
@@ -68,6 +69,10 @@ fun Navigation() {
         composable(route = Screens.ChangePasswordScreen.route) {
             ChangePasswordScreen()
         }
+
+        composable(route = Screens.LoanApplicationScreen.route) {
+            LoanApplicationScreen(navController = navController)
+        }
     }
 }
 
@@ -80,4 +85,5 @@ sealed class Screens(val route: String) {
     object HomeScreen: Screens("home_screen")
     object LoanHistoryScreen: Screens("loan_history_screen")
     object ChangePasswordScreen: Screens("change_password_screen")
+    object LoanApplicationScreen: Screens("loan_application_screen")
 }
