@@ -103,7 +103,7 @@ fun HomeTopSection(
             }
 
             ButtonSection(label = "Get My Loan") {
-
+                navController.navigate(Screens.LoanApplicationScreen.route)
             }
         }
     }
@@ -205,14 +205,5 @@ fun MenuItem(
             )
             Text(text = title, textAlign = TextAlign.Center)
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomePreview() {
-    OkoaLoanTheme {
-        val navController = rememberNavController()
-        HomeScreen(navController = navController)
     }
 }

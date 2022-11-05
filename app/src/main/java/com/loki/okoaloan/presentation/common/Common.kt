@@ -2,6 +2,7 @@ package com.loki.okoaloan.presentation.common
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -16,12 +17,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun Input(
     placeholder: String,
-    label: String,
+    label: String = "",
     value: String,
     onValueChange: (String) -> Unit,
     errorMessage: String,
@@ -73,11 +76,74 @@ fun Input(
     )
 
     if (isError) {
-        Text(text = errorMessage, color = Color.Red)
+        Text(text = errorMessage, color = Color.Red, fontSize = 12.sp)
     }
 
 }
 
+@Composable
+fun InputLabel(
+    labelNumber: String,
+    label: String,
+) {
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(top = 8.dp)
+    ) {
+        Text(
+            text = "*",
+            fontSize = 10.sp,
+            color = Color.Red,
+            modifier = Modifier.padding(end = 4.dp)
+        )
+        Text(
+            text = "${labelNumber}. ",
+            fontSize = 12.sp
+        )
+        Text(
+            text = label,
+            fontSize = 12.sp
+        )
+    }
+}
+
+
+@Composable
+fun AltInput(
+    placeholder: String,
+    value: String,
+    onValueChange: (String) -> Unit,
+    errorMessage: String,
+    isError: Boolean,
+    keyboardType: KeyboardType = KeyboardType.Text
+) {
+
+    TextField(
+        value = value,
+        onValueChange = {
+            onValueChange(it)
+        },
+        isError = isError,
+        placeholder = {
+            Text(text = placeholder)
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.Transparent,
+            focusedLabelColor = Color.Black,
+            focusedIndicatorColor = Color.Black
+        ),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = keyboardType
+        )
+    )
+
+    if (isError) {
+        Text(text = errorMessage, color = Color.Red, fontSize = 12.sp)
+    }
+}
 
 @Composable
 fun ButtonSection(
