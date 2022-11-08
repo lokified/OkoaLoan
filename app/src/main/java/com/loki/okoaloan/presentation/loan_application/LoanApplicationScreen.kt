@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.dsc.form_builder.ChoiceState
 import com.dsc.form_builder.SelectState
 import com.dsc.form_builder.TextFieldState
+import com.loki.okoaloan.presentation.Screens
 import com.loki.okoaloan.presentation.common.*
 
 @Composable
@@ -37,7 +38,7 @@ fun LoanApplicationScreen(
                 .background(MaterialTheme.colors.surface)
         ) {
 
-            BasicInfoForm(modifier = Modifier.padding(16.dp))
+            BasicInfoForm(modifier = Modifier.padding(16.dp), navController = navController)
         }
     }
 }
@@ -45,17 +46,16 @@ fun LoanApplicationScreen(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BasicInfoForm(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController
 ) {
 
-    val scrollState = rememberScrollState()
     val viewModel = LoanApplicationViewModel()
     val formState = remember{ viewModel.basicInfoState }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(modifier = modifier
-        .fillMaxWidth()
-        .verticalScroll(scrollState)) {
+        .fillMaxWidth()) {
 
         val firstName = formState.getState<TextFieldState>("firstName")
         val lastName = formState.getState<TextFieldState>("lastName")
@@ -143,7 +143,7 @@ fun BasicInfoForm(
 
             keyboardController?.hide()
             if (formState.validate()) {
-
+                navController.navigate(Screens.PersonalInfoScreen.route)
             }
         }
     }
