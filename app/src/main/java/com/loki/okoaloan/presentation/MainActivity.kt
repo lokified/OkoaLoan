@@ -23,7 +23,9 @@ import com.loki.okoaloan.presentation.loan_history.LoanHistoryScreen
 import com.loki.okoaloan.presentation.splash_screen.SplashScreen
 import com.loki.okoaloan.presentation.ui.theme.OkoaLoanTheme
 import com.loki.okoaloan.presentation.welcome_screen.WelcomeScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -17,23 +17,56 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dsc.form_builder.TextFieldState
 import com.loki.okoaloan.presentation.Screens
 import com.loki.okoaloan.presentation.common.ButtonSection
 import com.loki.okoaloan.presentation.common.Input
 import com.loki.okoaloan.presentation.common.TopBar
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun WelcomeScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
 
-    Scaffold(topBar = { TopBar(title = "Welcome") }) {
+    val scaffoldState = rememberScaffoldState()
+
+    LaunchedEffect(key1 = true) {
+
+        viewModel.eventFlow.collectLatest { event ->
+
+            when(event) {
+                is AuthViewModel.UiEvent.SaveUser -> {
+
+                }
+
+                is AuthViewModel.UiEvent.ShowSnackBar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message
+                    )
+                }
+
+                is AuthViewModel.UiEvent.LoginUser -> {
+                    navController.navigate(Screens.HomeScreen.route)
+
+                }
+            }
+        }
+    }
+
+    Scaffold(
+        topBar = { TopBar(title = "Welcome") },
+        scaffoldState = scaffoldState
+    ) {
 
         Box(modifier = Modifier.background(MaterialTheme.colors.surface)) {
             SignUpSection(
-                navController = navController
+                navController = navController,
+                viewModel = viewModel
             )
         }
 
@@ -43,7 +76,8 @@ fun WelcomeScreen(
 
 @Composable
 fun SignUpSection(
-    navController: NavController
+    navController: NavController,
+    viewModel: AuthViewModel
 ) {
 
     Column(
@@ -66,13 +100,15 @@ fun SignUpSection(
 
                 if(selected == "Register") {
                     SignUpFormSection(
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(16.dp),
+                        viewModel = viewModel
                     )
 
                 } else {
                     LoginFormSection(
                         modifier = Modifier.padding(16.dp),
-                        navController = navController
+                        navController = navController,
+                        viewModel = viewModel
                     )
 
                 }
@@ -86,9 +122,9 @@ fun SignUpSection(
 @Composable
 fun LoginFormSection(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    viewModel: AuthViewModel
 ) {
-    val viewModel = AuthViewModel()
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val formState = remember { viewModel.loginFormState }
@@ -123,7 +159,11 @@ fun LoginFormSection(
                 keyboardController?.hide()
 
                 if (formState.validate()) {
-                    navController.navigate(Screens.HomeScreen.route)
+                    viewModel.onEvent(
+                        AuthViewModel.AuthEvent.LoginUser,
+                        phoneNumber = phone.value,
+                        password = password.value
+                    )
                 }
             }
         }
@@ -133,9 +173,9 @@ fun LoginFormSection(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpFormSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: AuthViewModel
 ) {
-    val viewModel = AuthViewModel()
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val formState = remember { viewModel.registerFormState }
@@ -181,7 +221,11 @@ fun SignUpFormSection(
                 keyboardController?.hide()
 
                 if (formState.validate()) {
-
+                    viewModel.onEvent(
+                        AuthViewModel.AuthEvent.RegisterUser,
+                        phoneNumber = phone.value,
+                        password = password.value
+                    )
                 }
             }
 
