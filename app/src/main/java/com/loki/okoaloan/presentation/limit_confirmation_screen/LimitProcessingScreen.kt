@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.loki.okoaloan.presentation.Screens
 import com.loki.okoaloan.presentation.common.ButtonSection
 import com.loki.okoaloan.presentation.common.TopBar
+import com.loki.okoaloan.presentation.navigation.Screens
 
 @Composable
 fun LimitProcessingScreen(

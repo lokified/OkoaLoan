@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'dagger.hilt.android.plugin'
+    id "com.google.gms.google-services"
 }
 
 android {
@@ -108,4 +109,16 @@ dependencies {
 
     //form builder
     implementation "com.github.jkuatdsc:form-builder:1.0.3"
+
+    //Firebase
+    implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
+    implementation "com.google.firebase:firebase-auth-ktx"
+    implementation "com.google.firebase:firebase-firestore-ktx"
+
+    //Play Services
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$play_services_version"
+    implementation "com.google.android.gms:play-services-auth:$play_services_auth_version"
+
+    //google ads
+    implementation 'com.google.android.gms:play-services-ads:21.3.0'
 }

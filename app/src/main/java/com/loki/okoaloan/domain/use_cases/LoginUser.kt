@@ -1,25 +1,45 @@
 package com.loki.okoaloan.domain.use_cases
 
-import com.loki.okoaloan.domain.model.UserException
+import com.loki.okoaloan.domain.model.User
 import com.loki.okoaloan.domain.repository.UserRepository
+import com.loki.okoaloan.util.Resource
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
+import java.io.IOException
 
 class LoginUser(
     private val repository: UserRepository
 ) {
 
-    @Throws(UserException::class)
-    suspend operator fun invoke(phoneNumber: String, password: String) {
+    operator fun invoke(phoneNumber: String, password: String) = flow<Resource<User>> {
 
-        val user = repository.getUser(phoneNumber)
+        try {
+            emit(Resource.Loading<User>())
 
-        if (user.phoneNumber != phoneNumber){
-            throw UserException("Wrong phone number")
+            val user = repository.getUser(phoneNumber)
+            if (user != null) {
+                if (user.phoneNumber != phoneNumber){
+                    emit(Resource.Error<User>("Wrong phone number"))
+                }
+                else if(user.password != password) {
+                    emit(Resource.Error<User>("Wrong password"))
+                }
+
+                else {
+                    delay(3000L)
+                    emit(Resource.Success<User>(data = user, message = "Login Success"))
+                }
+            }
+            else {
+                emit(Resource.Error<User>("User does not exist"))
+            }
         }
-        else if(user.password != password) {
-            throw UserException("Wrong password")
+        catch (e: HttpException) {
+            emit(Resource.Error<User>(e.localizedMessage ?: "An unexpected error occurred", data = null))
         }
-        else {
-            throw UserException("login success")
+        catch (e: IOException) {
+            emit(Resource.Error<User>("check your internet connection", data = null))
         }
     }
 }

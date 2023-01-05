@@ -18,7 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.loki.okoaloan.R
-import com.loki.okoaloan.presentation.Screens
+import com.loki.okoaloan.presentation.navigation.Screens
 import kotlinx.coroutines.delay
 
 @Composable

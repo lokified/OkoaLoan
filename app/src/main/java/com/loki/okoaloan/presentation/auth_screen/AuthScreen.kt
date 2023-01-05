@@ -1,4 +1,4 @@
-package com.loki.okoaloan.presentation.welcome_screen
+package com.loki.okoaloan.presentation.auth_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,15 +20,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dsc.form_builder.TextFieldState
-import com.loki.okoaloan.presentation.Screens
 import com.loki.okoaloan.presentation.common.ButtonSection
 import com.loki.okoaloan.presentation.common.Input
 import com.loki.okoaloan.presentation.common.TopBar
-import kotlinx.coroutines.flow.collect
+import com.loki.okoaloan.presentation.navigation.Screens
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun WelcomeScreen(
+fun AuthScreen(
     navController: NavController,
     viewModel: AuthViewModel = hiltViewModel()
 ) {
@@ -37,22 +36,35 @@ fun WelcomeScreen(
 
     LaunchedEffect(key1 = true) {
 
-        viewModel.eventFlow.collectLatest { event ->
+        viewModel.authEvent.collectLatest { event ->
 
             when(event) {
-                is AuthViewModel.UiEvent.SaveUser -> {
-
-                }
-
-                is AuthViewModel.UiEvent.ShowSnackBar -> {
+                is AuthViewModel.AuthEvent.Loading -> {
                     scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.message
+                        message = "Loading",
+                        duration = SnackbarDuration.Long
                     )
                 }
 
-                is AuthViewModel.UiEvent.LoginUser -> {
+                is AuthViewModel.AuthEvent.LoginSuccess -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message,
+                        duration = SnackbarDuration.Long
+                    )
                     navController.navigate(Screens.HomeScreen.route)
+                }
 
+                is AuthViewModel.AuthEvent.RegisterSuccess -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message,
+                        duration = SnackbarDuration.Long
+                    )
+                }
+
+                is AuthViewModel.AuthEvent.Error -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.error
+                    )
                 }
             }
         }
@@ -64,28 +76,22 @@ fun WelcomeScreen(
     ) {
 
         Box(modifier = Modifier.background(MaterialTheme.colors.surface)) {
-            SignUpSection(
-                navController = navController,
-                viewModel = viewModel
-            )
+            SignUpSection()
         }
-
     }
 }
 
 
 @Composable
-fun SignUpSection(
-    navController: NavController,
-    viewModel: AuthViewModel
-) {
+fun SignUpSection() {
+
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = 16.dp),
         horizontalAlignment = CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
 
         var selected by remember {
@@ -100,15 +106,12 @@ fun SignUpSection(
 
                 if(selected == "Register") {
                     SignUpFormSection(
-                        modifier = Modifier.padding(16.dp),
-                        viewModel = viewModel
+                        modifier = Modifier.padding(16.dp)
                     )
 
                 } else {
                     LoginFormSection(
-                        modifier = Modifier.padding(16.dp),
-                        navController = navController,
-                        viewModel = viewModel
+                        modifier = Modifier.padding(16.dp)
                     )
 
                 }
@@ -122,8 +125,7 @@ fun SignUpSection(
 @Composable
 fun LoginFormSection(
     modifier: Modifier = Modifier,
-    navController: NavController,
-    viewModel: AuthViewModel
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -132,7 +134,7 @@ fun LoginFormSection(
     val phone = formState.getState<TextFieldState>("Phone")
     val password = formState.getState<TextFieldState>("Password")
 
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(modifier = modifier) {
 
         Column {
 
@@ -159,8 +161,7 @@ fun LoginFormSection(
                 keyboardController?.hide()
 
                 if (formState.validate()) {
-                    viewModel.onEvent(
-                        AuthViewModel.AuthEvent.LoginUser,
+                    viewModel.loginUser(
                         phoneNumber = phone.value,
                         password = password.value
                     )
@@ -174,7 +175,7 @@ fun LoginFormSection(
 @Composable
 fun SignUpFormSection(
     modifier: Modifier = Modifier,
-    viewModel: AuthViewModel
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -184,7 +185,7 @@ fun SignUpFormSection(
     val password = formState.getState<TextFieldState>("Password")
     val conPassword = formState.getState<TextFieldState>("Confirm Password")
 
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(modifier = modifier) {
 
         Column {
 
@@ -221,15 +222,12 @@ fun SignUpFormSection(
                 keyboardController?.hide()
 
                 if (formState.validate()) {
-                    viewModel.onEvent(
-                        AuthViewModel.AuthEvent.RegisterUser,
+                    viewModel.registerUser(
                         phoneNumber = phone.value,
                         password = password.value
                     )
                 }
             }
-
-
         }
     }
 }

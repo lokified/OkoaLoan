@@ -1,4 +1,4 @@
-package com.loki.okoaloan.data
+package com.loki.okoaloan.data.repository
 
 import com.loki.okoaloan.data.data_source.UserDao
 import com.loki.okoaloan.domain.model.User
@@ -8,8 +8,9 @@ class UserRepositoryImpl(
     private val dao: UserDao
 ): UserRepository {
 
-    override suspend fun insertUser(user: User) {
-       return dao.insertUser(user)
+    override suspend fun insertUser(user: User) : String {
+        dao.insertUser(user)
+        return "Registration successfully"
     }
 
     override suspend fun getUser(phoneNumber: String): User {

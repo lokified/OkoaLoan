@@ -9,6 +9,3 @@ data class User(
     val phoneNumber: String,
     val password: String
 )
-
-
-class UserException(message: String): Exception(message)

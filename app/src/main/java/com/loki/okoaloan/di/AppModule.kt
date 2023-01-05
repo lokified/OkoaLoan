@@ -2,7 +2,7 @@ package com.loki.okoaloan.di
 
 import android.app.Application
 import androidx.room.Room
-import com.loki.okoaloan.data.UserRepositoryImpl
+import com.loki.okoaloan.data.repository.UserRepositoryImpl
 import com.loki.okoaloan.data.data_source.UserDatabase
 import com.loki.okoaloan.domain.repository.UserRepository
 import com.loki.okoaloan.domain.use_cases.LoginUser
