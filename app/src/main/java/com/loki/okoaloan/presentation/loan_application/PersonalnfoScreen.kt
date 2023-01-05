@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.dsc.form_builder.TextFieldState
-import com.loki.okoaloan.presentation.Screens
+import com.loki.okoaloan.presentation.navigation.Screens
 import com.loki.okoaloan.presentation.common.*
 
 @Composable

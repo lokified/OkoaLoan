@@ -3,7 +3,6 @@ package com.loki.okoaloan.presentation.get_started
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -20,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.loki.okoaloan.R
-import com.loki.okoaloan.presentation.Screens
+import com.loki.okoaloan.presentation.navigation.Screens
 
 @Composable
 fun GetStartedScreen(
@@ -29,7 +28,9 @@ fun GetStartedScreen(
 
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.surface),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.surface),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -79,7 +80,7 @@ fun GetStartedBottomSection(
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Button(
             onClick = {
-                navController.navigate(Screens.WelcomeScreen.route)
+                navController.navigate(Screens.AuthScreen.route)
             },
             modifier = Modifier
                 .clip(RoundedCornerShape(100.dp))
