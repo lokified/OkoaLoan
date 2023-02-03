@@ -29,47 +29,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AuthScreen(
-    navController: NavController,
-    viewModel: AuthViewModel = hiltViewModel()
+    openAndPopUp: (String, String) -> Unit
 ) {
 
     val scaffoldState = rememberScaffoldState()
-
-    LaunchedEffect(key1 = true) {
-
-        viewModel.authEvent.collectLatest { event ->
-
-            when(event) {
-                is AuthViewModel.AuthEvent.Loading -> {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = "Loading",
-                        duration = SnackbarDuration.Long
-                    )
-                }
-
-                is AuthViewModel.AuthEvent.LoginSuccess -> {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.message,
-                        duration = SnackbarDuration.Short
-                    )
-                    navController.navigate(Screens.HomeScreen.route)
-                }
-
-                is AuthViewModel.AuthEvent.RegisterSuccess -> {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.message,
-                        duration = SnackbarDuration.Long
-                    )
-                }
-
-                is AuthViewModel.AuthEvent.Error -> {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.error
-                    )
-                }
-            }
-        }
-    }
 
     Scaffold(
         topBar = { TopBar(title = "Welcome") },
@@ -77,14 +40,16 @@ fun AuthScreen(
     ) {
 
         Box(modifier = Modifier.background(MaterialTheme.colors.background)) {
-            SignUpSection()
+            SignUpSection(openAndPopUp = openAndPopUp)
         }
     }
 }
 
 
 @Composable
-fun SignUpSection() {
+fun SignUpSection(
+    openAndPopUp: (String, String) -> Unit
+) {
 
 
     Column(
@@ -112,7 +77,8 @@ fun SignUpSection() {
 
                 } else {
                     LoginFormSection(
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(16.dp),
+                        openAndPopUp = openAndPopUp
                     )
 
                 }
@@ -126,13 +92,14 @@ fun SignUpSection() {
 @Composable
 fun LoginFormSection(
     modifier: Modifier = Modifier,
-    viewModel: AuthViewModel = hiltViewModel()
+    viewModel: AuthViewModel = hiltViewModel(),
+    openAndPopUp: (String, String) -> Unit
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val formState = remember { viewModel.loginFormState }
 
-    val phone = formState.getState<TextFieldState>("Phone")
+    val email = formState.getState<TextFieldState>("Email")
     val password = formState.getState<TextFieldState>("Password")
 
     Box(modifier = modifier) {
@@ -140,12 +107,12 @@ fun LoginFormSection(
         Column {
 
             Input(
-                placeholder = "Enter your phone number",
-                label = "Phone",
-                value = phone.value,
-                onValueChange = { phone.change(it) },
-                errorMessage = phone.errorMessage,
-                isError = phone.hasError
+                placeholder = "Enter your Email",
+                label = "Email",
+                value = email.value,
+                onValueChange = { email.change(it) },
+                errorMessage = email.errorMessage,
+                isError = email.hasError
             )
 
             Input(
@@ -163,9 +130,9 @@ fun LoginFormSection(
 
                 if (formState.validate()) {
                     viewModel.loginUser(
-                        phoneNumber = phone.value,
+                        email = email.value,
                         password = password.value
-                    )
+                    ) { route, popup -> openAndPopUp(route, popup) }
                 }
             }
         }
@@ -182,7 +149,7 @@ fun SignUpFormSection(
     val keyboardController = LocalSoftwareKeyboardController.current
     val formState = remember { viewModel.registerFormState }
 
-    val phone = formState.getState<TextFieldState>("Phone")
+    val email = formState.getState<TextFieldState>("Email")
     val password = formState.getState<TextFieldState>("Password")
     val conPassword = formState.getState<TextFieldState>("Confirm Password")
 
@@ -191,12 +158,12 @@ fun SignUpFormSection(
         Column {
 
             Input(
-                placeholder = "Enter your phone number",
-                label = "Phone",
-                value = phone.value,
-                onValueChange = { phone.change(it) },
-                errorMessage = phone.errorMessage,
-                isError = phone.hasError
+                placeholder = "Enter your email",
+                label = "Email",
+                value = email.value,
+                onValueChange = { email.change(it) },
+                errorMessage = email.errorMessage,
+                isError = email.hasError
             )
 
             Input(
@@ -224,7 +191,7 @@ fun SignUpFormSection(
 
                 if (formState.validate()) {
                     viewModel.registerUser(
-                        phoneNumber = phone.value,
+                        email = email.value,
                         password = password.value
                     )
                 }

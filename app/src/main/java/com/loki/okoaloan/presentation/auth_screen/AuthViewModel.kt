@@ -5,26 +5,28 @@ import androidx.lifecycle.viewModelScope
 import com.dsc.form_builder.FormState
 import com.dsc.form_builder.TextFieldState
 import com.dsc.form_builder.Validators
-import com.loki.okoaloan.domain.model.User
-import com.loki.okoaloan.domain.use_cases.UserUseCase
-import com.loki.okoaloan.util.Resource
+import com.loki.okoaloan.R
+import com.loki.okoaloan.domain.repository.FirebaseAccountRepository
+import com.loki.okoaloan.presentation.OkoaLoanViewModel
+import com.loki.okoaloan.presentation.navigation.Screens
+import com.loki.okoaloan.util.SnackbarManager
+import com.loki.okoaloan.util.SnackbarMessage.Companion.toSnackbarMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val userUseCase: UserUseCase
-): ViewModel() {
-
+    private val firebaseAccount: FirebaseAccountRepository
+): OkoaLoanViewModel() {
 
     val loginFormState = FormState(
         fields = listOf(
             TextFieldState(
-                name = "Phone",
+                name = "Email",
                 validators = listOf(
                     Validators.Required()
                 )
@@ -41,7 +43,7 @@ class AuthViewModel @Inject constructor(
     val registerFormState = FormState(
         fields = listOf(
             TextFieldState(
-                name = "Phone",
+                name = "Email",
                 validators = listOf(
                     Validators.Required()
                 )
@@ -61,59 +63,34 @@ class AuthViewModel @Inject constructor(
         )
     )
 
-    private val _authEvent = MutableSharedFlow<AuthEvent>()
-    val authEvent = _authEvent.asSharedFlow()
+    fun loginUser(
+        email: String,
+        password: String,
+        openAndPopup: (String, String) -> Unit
+    ) {
 
-    fun loginUser(phoneNumber: String, password: String) {
+        launchCatching {
+            SnackbarManager.showMessage(R.string.loading)
 
-        userUseCase.loginUser(phoneNumber, password).onEach { result ->
+            delay(1000L)
 
-            when(result){
-
-                is Resource.Loading -> {
-                    _authEvent.emit(AuthEvent.Loading)
-                }
-
-                is Resource.Success -> {
-                    _authEvent.emit(AuthEvent.LoginSuccess(result.message ?: ""))
-                }
-
-                is Resource.Error -> {
-                    _authEvent.emit(AuthEvent.Error(result.message ?: "Something went wrong"))
-                }
-            }
-        }.launchIn(viewModelScope)
-    }
-
-    fun registerUser(phoneNumber: String, password: String) {
-        userUseCase.registerUser(
-            User(
-                phoneNumber = phoneNumber, password = password
+            firebaseAccount.authenticate(email, password)
+            openAndPopup(
+                Screens.HomeScreen.route,
+                Screens.AuthScreen.route
             )
-
-        ).onEach { result ->
-
-            when(result){
-
-                is Resource.Loading -> {
-                    _authEvent.emit(AuthEvent.Loading)
-                }
-
-                is Resource.Success -> {
-                    _authEvent.emit(AuthEvent.RegisterSuccess(result.data ?: ""))
-                }
-
-                is Resource.Error -> {
-                    _authEvent.emit(AuthEvent.Error(result.message ?: "Something went wrong"))
-                }
-            }
-        }.launchIn(viewModelScope)
+        }
     }
 
-    sealed class AuthEvent {
-        object Loading: AuthEvent()
-        data class LoginSuccess(val message: String): AuthEvent()
-        data class RegisterSuccess(val message: String): AuthEvent()
-        data class Error(val error: String): AuthEvent()
+    fun registerUser(email: String, password: String) {
+
+        launchCatching {
+            SnackbarManager.showMessage(R.string.loading)
+
+            delay(1000L)
+
+            firebaseAccount.createAccount(email, password)
+            SnackbarManager.showMessage(R.string.register_success)
+        }
     }
 }

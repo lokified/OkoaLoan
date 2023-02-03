@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.loki.okoaloan.R
 import com.loki.okoaloan.presentation.navigation.Screens
@@ -25,7 +26,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    openAndPopUp: (String, String) -> Unit
+    openAndPopUp: (String, String) -> Unit,
+    viewModel: SplashScreenViewModel = hiltViewModel()
 ) {
 
     val scale = remember {
@@ -45,12 +47,14 @@ fun SplashScreen(
         )
 
         delay(3000L)
-        openAndPopUp(Screens.GetStartedScreen.route, Screens.SplashScreen.route)
+
+        viewModel.onAppStart(openAndPopUp)
 
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .background(MaterialTheme.colors.background),
         contentAlignment = Alignment.Center,
     ) {

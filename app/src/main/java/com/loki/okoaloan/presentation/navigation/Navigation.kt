@@ -29,9 +29,11 @@ fun Navigation(
     ) {
 
         composable(route = Screens.SplashScreen.route) {
-            SplashScreen { route, popup ->
-                appState.navigateAndPopUp(route, popup)
-            }
+            SplashScreen(
+                openAndPopUp = { route, popup ->
+                    appState.navigateAndPopUp(route, popup)
+                }
+            )
         }
 
         composable(route = Screens.GetStartedScreen.route) {
@@ -41,13 +43,20 @@ fun Navigation(
         }
 
         composable(route = Screens.AuthScreen.route) {
-            AuthScreen(navController = appState.navController)
+            AuthScreen { route, popup ->
+                appState.navigateAndPopUp(route, popup)
+            }
         }
 
         composable(route = Screens.HomeScreen.route) {
-            HomeScreen { route ->
-                appState.navigate(route)
-            }
+            HomeScreen(
+                openScreen = { route ->
+                    appState.navigate(route)
+                },
+                restartApp = { route ->
+                    appState.clearAndNavigate(route)
+                }
+            )
         }
 
         composable(route = Screens.LoanHistoryScreen.route) {

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.loki.okoaloan.presentation.common.ButtonSection
 import com.loki.okoaloan.presentation.common.TopBar
@@ -25,7 +26,9 @@ import com.loki.okoaloan.presentation.ui.theme.Jet
 
 @Composable
 fun HomeScreen(
-    openScreen: (String) -> Unit
+    openScreen: (String) -> Unit,
+    restartApp: (String) -> Unit,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
 
     Scaffold(topBar = {
@@ -44,7 +47,10 @@ fun HomeScreen(
 
                 HomeMenuSection(
                     openScreen = openScreen,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp),
+                    logOut = {
+                        viewModel.onLogOutClick(restartApp)
+                    }
                 )
             }
 
@@ -108,7 +114,8 @@ fun HomeTopSection(
 @Composable
 fun HomeMenuSection(
     openScreen: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    logOut: () -> Unit
 ) {
 
     Box(modifier = modifier) {
@@ -136,7 +143,7 @@ fun HomeMenuSection(
 
                 },
                 onColTwoClick = {
-
+                    logOut()
                 }
             )
         }

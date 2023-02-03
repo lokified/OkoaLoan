@@ -3,4 +3,8 @@
     <string name="web_client_id">440656054788-beoi794pfmscllulkqjvn2br3eulvjlc.apps.googleusercontent.com</string>
     <string name="ad_id_banner">ca-app-pub-8773162273432819/6586113781</string>
     <string name="ad_id_interstitial">ca-app-pub-8773162273432819/3245881990</string>
+    <string name="snack_error">Something went wrong</string>
+    <string name="loading">Loading …</string>
+    <string name="register_success">Registration Successful</string>
+    <string name="login_success">Login Successful</string>
 </resources>
