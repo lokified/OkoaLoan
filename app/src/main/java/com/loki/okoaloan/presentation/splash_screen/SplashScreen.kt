@@ -23,7 +23,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    navController: NavController
+    openAndPopUp: (String, String) -> Unit
 ) {
 
     val scale = remember {
@@ -43,7 +43,7 @@ fun SplashScreen(
         )
 
         delay(3000L)
-        navController.navigate(Screens.GetStartedScreen.route)
+        openAndPopUp(Screens.GetStartedScreen.route, Screens.SplashScreen.route)
 
     }
 

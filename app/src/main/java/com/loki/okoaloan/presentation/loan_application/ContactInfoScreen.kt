@@ -22,7 +22,7 @@ import com.loki.okoaloan.presentation.common.*
 
 @Composable
 fun ContactInfoScreen(
-    navController: NavController
+    openScreen: (String) -> Unit
 ) {
 
     Scaffold(topBar = { TopBar(title = "Personal Information") }) {
@@ -33,7 +33,7 @@ fun ContactInfoScreen(
         ) {
             ContactInfoForm(
                 modifier = Modifier.padding(16.dp),
-                navController = navController
+                openScreen = openScreen
             )
         }
     }
@@ -43,7 +43,7 @@ fun ContactInfoScreen(
 @Composable
 fun ContactInfoForm(
     modifier: Modifier = Modifier,
-    navController: NavController
+    openScreen: (String) -> Unit
 ) {
 
     val viewModel = LoanApplicationViewModel()
@@ -112,7 +112,7 @@ fun ContactInfoForm(
 
         ButtonSection(label = "Submit") {
             keyboardController?.hide()
-            navController.navigate(Screens.LimitProcessingScreen.route)
+            openScreen(Screens.LimitProcessingScreen.route)
         }
     }
 }

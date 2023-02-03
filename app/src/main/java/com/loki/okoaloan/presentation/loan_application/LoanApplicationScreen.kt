@@ -22,7 +22,7 @@ import com.loki.okoaloan.presentation.common.*
 
 @Composable
 fun LoanApplicationScreen(
-    navController: NavController
+    openScreen: (String) -> Unit
 ) {
 
 
@@ -34,7 +34,10 @@ fun LoanApplicationScreen(
                 .background(MaterialTheme.colors.surface)
         ) {
 
-            BasicInfoForm(modifier = Modifier.padding(16.dp), navController = navController)
+            BasicInfoForm(
+                modifier = Modifier.padding(16.dp),
+                openScreen = openScreen
+            )
         }
     }
 }
@@ -43,7 +46,7 @@ fun LoanApplicationScreen(
 @Composable
 fun BasicInfoForm(
     modifier: Modifier = Modifier,
-    navController: NavController
+    openScreen: (String) -> Unit
 ) {
 
     val viewModel = LoanApplicationViewModel()
@@ -139,7 +142,7 @@ fun BasicInfoForm(
 
             keyboardController?.hide()
             if (formState.validate()) {
-                navController.navigate(Screens.PersonalInfoScreen.route)
+                openScreen(Screens.PersonalInfoScreen.route)
             }
         }
     }

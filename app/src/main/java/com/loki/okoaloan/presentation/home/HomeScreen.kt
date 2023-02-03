@@ -24,7 +24,7 @@ import com.loki.okoaloan.presentation.navigation.Screens
 
 @Composable
 fun HomeScreen(
-    navController: NavController
+    openScreen: (String) -> Unit
 ) {
 
     Scaffold(topBar = {
@@ -37,12 +37,12 @@ fun HomeScreen(
 
             Column {
                 HomeTopSection(
-                    navController = navController,
+                    openScreen = openScreen,
                     modifier = Modifier.padding(16.dp)
                 )
 
                 HomeMenuSection(
-                    navController = navController,
+                    openScreen = openScreen,
                     modifier = Modifier.padding(16.dp)
                 )
             }
@@ -55,7 +55,7 @@ fun HomeScreen(
 
 @Composable
 fun HomeTopSection(
-    navController: NavController,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -100,7 +100,7 @@ fun HomeTopSection(
             }
 
             ButtonSection(label = "Get My Loan") {
-                navController.navigate(Screens.LoanApplicationScreen.route)
+                openScreen(Screens.LoanApplicationScreen.route)
             }
         }
     }
@@ -108,7 +108,7 @@ fun HomeTopSection(
 
 @Composable
 fun HomeMenuSection(
-    navController: NavController,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -121,10 +121,10 @@ fun HomeMenuSection(
                 colOneIcon = Icons.Default.History,
                 colTwoIcon = Icons.Default.Password,
                 onColOneClick = {
-                    navController.navigate(Screens.LoanHistoryScreen.route)
+                    openScreen(Screens.LoanHistoryScreen.route)
                 },
                 onColTwoClick = {
-                    navController.navigate(Screens.ChangePasswordScreen.route)
+                    openScreen(Screens.ChangePasswordScreen.route)
                 }
             )
 

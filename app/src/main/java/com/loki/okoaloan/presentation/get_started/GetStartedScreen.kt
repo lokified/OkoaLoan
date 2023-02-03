@@ -23,7 +23,7 @@ import com.loki.okoaloan.presentation.navigation.Screens
 
 @Composable
 fun GetStartedScreen(
-    navController: NavController
+    openAndPopUp: (String, String) -> Unit
 ) {
 
     Column(
@@ -36,7 +36,7 @@ fun GetStartedScreen(
 
         GetStartedTopSection()
 
-        GetStartedBottomSection(navController = navController)
+        GetStartedBottomSection(openAndPopUp = openAndPopUp)
     }
 
 }
@@ -74,13 +74,13 @@ fun GetStartedTopSection( ) {
 
 @Composable
 fun GetStartedBottomSection(
-    navController: NavController
+    openAndPopUp: (String, String) -> Unit
 ) {
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Button(
             onClick = {
-                navController.navigate(Screens.AuthScreen.route)
+                openAndPopUp(Screens.AuthScreen.route, Screens.GetStartedScreen.route)
             },
             modifier = Modifier
                 .clip(RoundedCornerShape(100.dp))

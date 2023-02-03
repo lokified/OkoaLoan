@@ -7,7 +7,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import com.loki.okoaloan.presentation.ui.theme.OkoaLoanTheme
@@ -24,7 +29,10 @@ class MainActivity : ComponentActivity() {
                     .background(color = MaterialTheme.colors.surface)
                     .fillMaxSize()) {
 
-                    Navigation()
+                    val appState = rememberAppState()
+                    Navigation(
+                        appState = appState
+                    )
                 }
             }
         }
@@ -39,3 +47,10 @@ class MainActivity : ComponentActivity() {
         )
     }
 }
+
+@Composable
+fun rememberAppState(
+    navController: NavHostController = rememberNavController()
+) = remember(navController) {
+        OkoaLoanAppState(navController)
+    }

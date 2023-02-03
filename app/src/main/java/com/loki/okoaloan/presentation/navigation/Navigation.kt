@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.loki.okoaloan.presentation.OkoaLoanAppState
 import com.loki.okoaloan.presentation.auth_screen.AuthScreen
 import com.loki.okoaloan.presentation.change_password.ChangePasswordScreen
 import com.loki.okoaloan.presentation.get_started.GetStartedScreen
@@ -13,34 +14,40 @@ import com.loki.okoaloan.presentation.loan_application.ContactInfoScreen
 import com.loki.okoaloan.presentation.loan_application.LoanApplicationScreen
 import com.loki.okoaloan.presentation.loan_application.PersonalInfoScreen
 import com.loki.okoaloan.presentation.loan_history.LoanHistoryScreen
+import com.loki.okoaloan.presentation.rememberAppState
 import com.loki.okoaloan.presentation.splash_screen.SplashScreen
 
 
 @Composable
-fun Navigation() {
-
-    val navController = rememberNavController()
+fun Navigation(
+    appState: OkoaLoanAppState
+) {
 
     NavHost(
-        navController = navController,
+        navController = appState.navController,
         startDestination = Screens.SplashScreen.route
     ) {
 
         composable(route = Screens.SplashScreen.route) {
-            SplashScreen(navController = navController)
+            SplashScreen { route, popup ->
+                appState.navigateAndPopUp(route, popup)
+            }
         }
 
         composable(route = Screens.GetStartedScreen.route) {
-            GetStartedScreen(navController = navController)
-
+            GetStartedScreen { route, popup ->
+                appState.navigateAndPopUp(route, popup)
+            }
         }
 
         composable(route = Screens.AuthScreen.route) {
-            AuthScreen(navController = navController)
+            AuthScreen(navController = appState.navController)
         }
 
         composable(route = Screens.HomeScreen.route) {
-            HomeScreen(navController = navController)
+            HomeScreen { route ->
+                appState.navigate(route)
+            }
         }
 
         composable(route = Screens.LoanHistoryScreen.route) {
@@ -52,19 +59,27 @@ fun Navigation() {
         }
 
         composable(route = Screens.LoanApplicationScreen.route) {
-            LoanApplicationScreen(navController = navController)
+            LoanApplicationScreen { route ->
+                appState.navigate(route)
+            }
         }
 
         composable(route = Screens.PersonalInfoScreen.route) {
-            PersonalInfoScreen(navController = navController)
+            PersonalInfoScreen { route ->
+                appState.navigate(route)
+            }
         }
 
         composable(route = Screens.ContactInfoScreen.route) {
-            ContactInfoScreen(navController = navController)
+            ContactInfoScreen { route ->
+                appState.navigate(route)
+            }
         }
 
         composable(route = Screens.LimitProcessingScreen.route) {
-            LimitProcessingScreen(navController = navController)
+            LimitProcessingScreen { route ->
+                appState.clearAndNavigate(route)
+            }
         }
     }
 }

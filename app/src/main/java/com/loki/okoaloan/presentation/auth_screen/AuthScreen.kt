@@ -49,7 +49,7 @@ fun AuthScreen(
                 is AuthViewModel.AuthEvent.LoginSuccess -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.message,
-                        duration = SnackbarDuration.Long
+                        duration = SnackbarDuration.Short
                     )
                     navController.navigate(Screens.HomeScreen.route)
                 }

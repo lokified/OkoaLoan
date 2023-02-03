@@ -20,7 +20,7 @@ import com.loki.okoaloan.presentation.navigation.Screens
 
 @Composable
 fun LimitProcessingScreen(
-    navController: NavController
+    clearAndNavigate: (String) -> Unit
 ) {
 
     Scaffold( topBar = { TopBar(title = "Limit Confirmation") } ) {
@@ -32,7 +32,7 @@ fun LimitProcessingScreen(
             contentAlignment = Alignment.Center
         ) {
             LimitProcessingSection(
-                navController = navController,
+                clearAndNavigate = clearAndNavigate,
                 modifier = Modifier.padding(24.dp)
             )
         }
@@ -42,7 +42,7 @@ fun LimitProcessingScreen(
 @Composable
 fun LimitProcessingSection(
     modifier: Modifier = Modifier,
-    navController: NavController
+    clearAndNavigate: (String) -> Unit
 ) {
 
     Box(contentAlignment = Alignment.Center, modifier = modifier) {
@@ -58,7 +58,7 @@ fun LimitProcessingSection(
                 fontSize = 12.sp
             )
             ButtonSection(label = "Back To Home") {
-                navController.navigate(Screens.HomeScreen.route)
+                clearAndNavigate(Screens.HomeScreen.route)
             }
         }
     }

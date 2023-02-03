@@ -18,7 +18,7 @@ import com.loki.okoaloan.presentation.common.*
 
 @Composable
 fun PersonalInfoScreen(
-    navController: NavController
+    openScreen: (String) -> Unit
 ) {
 
     Scaffold(topBar = { TopBar(title = "Personal Information") }) {
@@ -27,7 +27,7 @@ fun PersonalInfoScreen(
             .background(MaterialTheme.colors.surface))
 
         PersonalInfoFormSection(
-            navController = navController,
+            openScreen = openScreen,
             modifier = Modifier.padding(16.dp)
         )
     }
@@ -36,7 +36,7 @@ fun PersonalInfoScreen(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun PersonalInfoFormSection(
-    navController: NavController,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -120,7 +120,7 @@ fun PersonalInfoFormSection(
 //            if (formState.validate()) {
 //
 //            }
-            navController.navigate(Screens.ContactInfoScreen.route)
+            openScreen(Screens.ContactInfoScreen.route)
         }
     }
 }

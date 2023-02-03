@@ -38,7 +38,7 @@ fun DropDownInput(
         mutableStateOf(false)
     }
     var selectedValue by remember {
-        mutableStateOf("")
+        mutableStateOf(value)
     }
     var textFieldSize by remember {
         mutableStateOf(Size.Zero)
@@ -46,7 +46,9 @@ fun DropDownInput(
     val icon = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown
 
 
-    Column {
+    Column(
+        modifier = modifier
+    ) {
 
         Box {
             TextField(
