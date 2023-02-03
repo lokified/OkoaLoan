@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.loki.okoaloan.presentation.common.ButtonSection
 import com.loki.okoaloan.presentation.common.TopBar
 import com.loki.okoaloan.presentation.navigation.Screens
+import com.loki.okoaloan.presentation.ui.theme.Jet
 
 @Composable
 fun HomeScreen(
@@ -32,7 +33,7 @@ fun HomeScreen(
     }) {
 
         Box(modifier = Modifier
-            .background(MaterialTheme.colors.surface)
+            .background(MaterialTheme.colors.background)
             .fillMaxSize()) {
 
             Column {
@@ -71,13 +72,11 @@ fun HomeTopSection(
 
             Text(
                 text = "Available Loan Amount (KES)",
-                color = Color.LightGray,
                 fontSize = 14.sp
             )
 
             Text(
                 text = "50,000",
-                color = Color.Black,
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 24.dp)
@@ -92,9 +91,9 @@ fun HomeTopSection(
                     contentDescription = null
                 )
 
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Loan Period up to 60 days",
-                    color = Color.Black,
                     fontSize = 16.sp
                 )
             }
@@ -178,16 +177,13 @@ fun MenuItem(
 ) {
     Box(
         modifier = Modifier
-            .shadow(
-                elevation = 1.dp,
-                shape = RoundedCornerShape(10.dp)
-            )
-            .height(100.dp)
-            .width(100.dp)
+            .height(150.dp)
+            .width(150.dp)
             .clickable {
                 onItemClick()
             }
-            .padding(8.dp),
+            .padding(8.dp)
+            .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(10.dp)),
         contentAlignment = Alignment.Center
     ) {
 

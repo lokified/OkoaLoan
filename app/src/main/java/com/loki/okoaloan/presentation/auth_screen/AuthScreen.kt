@@ -25,6 +25,7 @@ import com.loki.okoaloan.presentation.common.Input
 import com.loki.okoaloan.presentation.common.TopBar
 import com.loki.okoaloan.presentation.navigation.Screens
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Composable
 fun AuthScreen(
@@ -75,7 +76,7 @@ fun AuthScreen(
         scaffoldState = scaffoldState
     ) {
 
-        Box(modifier = Modifier.background(MaterialTheme.colors.surface)) {
+        Box(modifier = Modifier.background(MaterialTheme.colors.background)) {
             SignUpSection()
         }
     }
@@ -266,7 +267,7 @@ fun ToggleButton(
                 Text(
                     text = text,
                     style = MaterialTheme.typography.body1,
-                    color = Color.Black,
+                    color = MaterialTheme.colors.onBackground,
                     modifier = Modifier
                         .clip(RoundedCornerShape(100.dp))
                         .clickable {

@@ -99,7 +99,7 @@ fun ButtonSection(
         onClick = { onButtonClick() },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.primary,
-            contentColor = Color.Black
+            contentColor = MaterialTheme.colors.onBackground
         ),
         modifier = Modifier
             .fillMaxWidth()

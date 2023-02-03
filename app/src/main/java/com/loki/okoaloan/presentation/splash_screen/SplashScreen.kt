@@ -4,6 +4,7 @@ import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -15,6 +16,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.loki.okoaloan.R
@@ -48,7 +50,8 @@ fun SplashScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .background(MaterialTheme.colors.background),
         contentAlignment = Alignment.Center,
     ) {
 
@@ -59,7 +62,10 @@ fun SplashScreen(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.loan),
-                contentDescription = null
+                contentDescription = null,
+                modifier = Modifier.size(
+                    70.dp
+                )
             )
             Text(
                 text = "Okoa Loan",

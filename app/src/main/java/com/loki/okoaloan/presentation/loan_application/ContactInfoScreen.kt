@@ -29,7 +29,7 @@ fun ContactInfoScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.surface)
+                .background(MaterialTheme.colors.background)
         ) {
             ContactInfoForm(
                 modifier = Modifier.padding(16.dp),

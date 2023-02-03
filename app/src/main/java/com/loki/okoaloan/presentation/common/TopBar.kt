@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 fun TopBar(title: String) {
 
     TopAppBar(
-        backgroundColor = MaterialTheme.colors.surface,
+        backgroundColor = MaterialTheme.colors.primary,
         elevation = 1.dp,
 
         ) {
@@ -32,7 +32,7 @@ fun TopBar(title: String) {
         ) {
             Text(
                 text = title,
-                color = Color.Black,
+                color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight.Bold
             )
         }

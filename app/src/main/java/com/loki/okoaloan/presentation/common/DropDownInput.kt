@@ -66,11 +66,7 @@ fun DropDownInput(
                     .onGloballyPositioned {
                         textFieldSize = it.size.toSize()
                     },
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.Transparent,
-                    focusedLabelColor = Color.Black,
-                    focusedIndicatorColor = Color.Black
-                ),
+                colors = textFieldColors(),
                 keyboardOptions = KeyboardOptions.Default,
                 trailingIcon = {
                     IconButton(onClick = { isExpanded = !isExpanded }) {
@@ -90,7 +86,11 @@ fun DropDownInput(
         }
 
         if (isError) {
-            Text(text = errorMessage, color = Color.Red, fontSize = 12.sp)
+            Text(
+                text = errorMessage,
+                color = MaterialTheme.colors.error,
+                fontSize = 12.sp
+            )
         }
 
         DropdownMenu(

@@ -1,8 +1,6 @@
 package com.loki.okoaloan.presentation.common
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -49,11 +47,7 @@ fun Input(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp),
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.Transparent,
-            focusedLabelColor = Color.Black,
-            focusedIndicatorColor = Color.Black
-        ),
+        colors = textFieldColors(),
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType
         ),
@@ -100,6 +94,7 @@ fun InputLabel(
             text = labelNumber ?: "",
             fontSize = 12.sp
         )
+        Spacer(modifier = Modifier.width(4.dp))
         Text(
             text = label,
             fontSize = 12.sp
@@ -129,17 +124,28 @@ fun AltInput(
         },
         modifier = Modifier
             .fillMaxWidth(),
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.Transparent,
-            focusedLabelColor = Color.Black,
-            focusedIndicatorColor = Color.Black
-        ),
+        colors = textFieldColors(),
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType
         )
     )
 
     if (isError) {
-        Text(text = errorMessage, color = Color.Red, fontSize = 12.sp)
+        Text(
+            text = errorMessage,
+            color = MaterialTheme.colors.error,
+            fontSize = 12.sp
+        )
     }
+}
+
+@Composable
+fun textFieldColors(): TextFieldColors {
+    return TextFieldDefaults.textFieldColors(
+        backgroundColor = Color.Transparent,
+        focusedLabelColor = MaterialTheme.colors.primary,
+        focusedIndicatorColor = MaterialTheme.colors.primary,
+        unfocusedLabelColor = MaterialTheme.colors.onBackground,
+        unfocusedIndicatorColor = MaterialTheme.colors.onBackground
+    )
 }

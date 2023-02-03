@@ -27,7 +27,7 @@ fun ChangePasswordScreen() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.surface)
+                .background(MaterialTheme.colors.background)
         ) {
             
             FormSection(

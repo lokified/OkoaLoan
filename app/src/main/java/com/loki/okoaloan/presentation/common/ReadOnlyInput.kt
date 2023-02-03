@@ -3,6 +3,7 @@ package com.loki.okoaloan.presentation.common
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -34,11 +35,7 @@ fun ReadOnlyInput(
                 Text(text = placeholder)
             },
             modifier = Modifier.fillMaxWidth(),
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.Transparent,
-                focusedLabelColor = Color.Black,
-                focusedIndicatorColor = Color.Black
-            ),
+            colors = textFieldColors(),
         )
 
         Box(
@@ -49,7 +46,11 @@ fun ReadOnlyInput(
         )
 
         if (isError) {
-            Text(text = errorMessage, color = Color.Red, fontSize = 12.sp)
+            Text(
+                text = errorMessage,
+                color = MaterialTheme.colors.error,
+                fontSize = 12.sp
+            )
         }
     }
 }

@@ -24,12 +24,13 @@ fun PersonalInfoScreen(
     Scaffold(topBar = { TopBar(title = "Personal Information") }) {
         Box(modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.surface))
+            .background(MaterialTheme.colors.background)) {
 
-        PersonalInfoFormSection(
-            openScreen = openScreen,
-            modifier = Modifier.padding(16.dp)
-        )
+            PersonalInfoFormSection(
+                openScreen = openScreen,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
     }
 }
 
@@ -117,10 +118,9 @@ fun PersonalInfoFormSection(
         ButtonSection(label = "Continue") {
 
             keyboardController?.hide()
-//            if (formState.validate()) {
-//
-//            }
-            openScreen(Screens.ContactInfoScreen.route)
+            //if (formState.validate()) {
+                openScreen(Screens.ContactInfoScreen.route)
+            //}
         }
     }
 }

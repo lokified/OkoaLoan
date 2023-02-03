@@ -31,7 +31,7 @@ fun LoanApplicationScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.surface)
+                .background(MaterialTheme.colors.background)
         ) {
 
             BasicInfoForm(
@@ -112,7 +112,7 @@ fun BasicInfoForm(
                 Text(
                     text = gender.errorMessage,
                     fontSize = 12.sp,
-                    color = Color.Red
+                    color = MaterialTheme.colors.error
                 )
             }
         }

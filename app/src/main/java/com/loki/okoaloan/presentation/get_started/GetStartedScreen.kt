@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,7 +31,7 @@ fun GetStartedScreen(
         verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.surface),
+            .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -48,25 +49,27 @@ fun GetStartedTopSection( ) {
             Image(
                 painter = painterResource(id = R.drawable.loan),
                 contentDescription = null,
-                modifier = Modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = 30.dp)
+                    .size(40.dp)
             )
 
             Text(
                 text = "Okoa Loan",
                 fontSize = 40.sp,
-                color = Color.Black
+                color = MaterialTheme.colors.primary,
+                fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = "SMART LOANS",
-                fontSize = 20.sp,
-                color = Color.Black
+                fontSize = 18.sp,
+                color = MaterialTheme.colors.onBackground
             )
 
             Text(
                 text = "FOR SMART PEOPLE",
-                fontSize = 20.sp,
-                color = Color.Black
+                fontSize = 16.sp,
+                color = MaterialTheme.colors.onBackground
             )
         }
 
@@ -100,8 +103,9 @@ fun GetStartedBottomSection(
         Text(
             text = "By signing up you are agreeing to our Terms & Conditions, Terms of Use and Privacy Policy",
             textAlign = TextAlign.Center,
-            fontSize = 12.sp,
-            modifier = Modifier.padding(bottom = 8.dp, start = 16.dp, end = 16.dp)
+            fontSize = 11.sp,
+            modifier = Modifier.padding(bottom = 8.dp, start = 16.dp, end = 16.dp),
+            color = MaterialTheme.colors.onBackground
         )
     }
 }
