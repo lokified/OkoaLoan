@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dsc.form_builder.ChoiceState
 import com.dsc.form_builder.TextFieldState
@@ -25,11 +26,12 @@ fun ContactInfoScreen(
     openScreen: (String) -> Unit
 ) {
 
-    Scaffold(topBar = { TopBar(title = "Personal Information") }) {
+    Scaffold(topBar = { TopBar(title = "Personal Information") }) { padding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.background)
+                .padding(padding)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             ContactInfoForm(
                 modifier = Modifier.padding(16.dp),
@@ -39,14 +41,13 @@ fun ContactInfoScreen(
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ContactInfoForm(
     modifier: Modifier = Modifier,
     openScreen: (String) -> Unit
 ) {
 
-    val viewModel = LoanApplicationViewModel()
+    val viewModel = hiltViewModel<LoanApplicationViewModel>();
     val keyboardController = LocalSoftwareKeyboardController.current
     val formState = remember { viewModel.contactInfoState }
 

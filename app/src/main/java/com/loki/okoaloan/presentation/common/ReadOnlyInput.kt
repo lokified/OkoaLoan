@@ -3,10 +3,10 @@ package com.loki.okoaloan.presentation.common
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -48,7 +48,7 @@ fun ReadOnlyInput(
         if (isError) {
             Text(
                 text = errorMessage,
-                color = MaterialTheme.colors.error,
+                color = MaterialTheme.colorScheme.error,
                 fontSize = 12.sp
             )
         }

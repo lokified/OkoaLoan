@@ -96,14 +96,14 @@ fun Navigation(
 
 sealed class Screens(val route: String) {
 
-    object SplashScreen: Screens("splash_screen")
-    object GetStartedScreen: Screens("get_started_screen")
-    object AuthScreen: Screens("auth_screen")
-    object HomeScreen: Screens("home_screen")
-    object LoanHistoryScreen: Screens("loan_history_screen")
-    object ChangePasswordScreen: Screens("change_password_screen")
-    object LoanApplicationScreen: Screens("loan_application_screen")
-    object PersonalInfoScreen: Screens("personal_info_screen")
-    object ContactInfoScreen: Screens("contact_info_screen")
-    object LimitProcessingScreen: Screens("limit_processing_screen")
+    data object SplashScreen: Screens("splash_screen")
+    data object GetStartedScreen: Screens("get_started_screen")
+    data object AuthScreen: Screens("auth_screen")
+    data object HomeScreen: Screens("home_screen")
+    data object LoanHistoryScreen: Screens("loan_history_screen")
+    data object ChangePasswordScreen: Screens("change_password_screen")
+    data object LoanApplicationScreen: Screens("loan_application_screen")
+    data object PersonalInfoScreen: Screens("personal_info_screen")
+    data object ContactInfoScreen: Screens("contact_info_screen")
+    data object LimitProcessingScreen: Screens("limit_processing_screen")
 }

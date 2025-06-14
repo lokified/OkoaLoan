@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
@@ -33,11 +33,13 @@ fun HomeScreen(
 
     Scaffold(topBar = {
         TopBar(title = "Home")
-    }) {
+    }) { padding ->
 
         Box(modifier = Modifier
-            .background(MaterialTheme.colors.background)
-            .fillMaxSize()) {
+            .fillMaxSize()
+            .padding(padding)
+            .background(MaterialTheme.colorScheme.background)
+        ) {
 
             Column {
                 HomeTopSection(
@@ -190,7 +192,7 @@ fun MenuItem(
                 onItemClick()
             }
             .padding(8.dp)
-            .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(10.dp)),
+            .background(color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(10.dp)),
         contentAlignment = Alignment.Center
     ) {
 
@@ -201,7 +203,7 @@ fun MenuItem(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = MaterialTheme.colors.primary
+                tint = MaterialTheme.colorScheme.primary
             )
             Text(text = title, textAlign = TextAlign.Center)
         }

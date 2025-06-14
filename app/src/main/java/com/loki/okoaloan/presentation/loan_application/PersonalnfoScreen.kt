@@ -4,13 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dsc.form_builder.TextFieldState
 import com.loki.okoaloan.presentation.navigation.Screens
@@ -21,10 +22,11 @@ fun PersonalInfoScreen(
     openScreen: (String) -> Unit
 ) {
 
-    Scaffold(topBar = { TopBar(title = "Personal Information") }) {
+    Scaffold(topBar = { TopBar(title = "Personal Information") }) { padding ->
         Box(modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)) {
+            .padding(padding)
+            .background(MaterialTheme.colorScheme.background)) {
 
             PersonalInfoFormSection(
                 openScreen = openScreen,
@@ -41,7 +43,7 @@ fun PersonalInfoFormSection(
     modifier: Modifier = Modifier
 ) {
 
-    val viewModel = LoanApplicationViewModel()
+    val viewModel = hiltViewModel<LoanApplicationViewModel>()
     val formState = remember{ viewModel.personalInfoState }
     val keyboardController = LocalSoftwareKeyboardController.current
     val scrollState = rememberScrollState()

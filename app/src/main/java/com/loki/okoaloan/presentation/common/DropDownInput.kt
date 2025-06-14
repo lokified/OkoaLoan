@@ -3,16 +3,14 @@ package com.loki.okoaloan.presentation.common
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -21,7 +19,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun DropDownInput(
     modifier: Modifier = Modifier,
@@ -88,7 +85,7 @@ fun DropDownInput(
         if (isError) {
             Text(
                 text = errorMessage,
-                color = MaterialTheme.colors.error,
+                color = MaterialTheme.colorScheme.error,
                 fontSize = 12.sp
             )
         }
@@ -108,19 +105,19 @@ fun DropDownInput(
                         keyboardController?.hide()
                         selectedValue = it
                         isExpanded = false
+                    },
+                    text = {
+                        Text(
+                            text = it,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 16.dp,
+                                    vertical = 12.dp
+                                ),
+                        )
                     }
-                ) {
-
-                    Text(
-                        text = it,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(
-                                horizontal = 16.dp,
-                                vertical = 12.dp
-                            ),
-                    )
-                }
+                )
             }
         }
     }

@@ -2,10 +2,10 @@ package com.loki.okoaloan.presentation.loan_history
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
 import androidx.compose.runtime.Composable
@@ -18,12 +18,13 @@ import com.loki.okoaloan.presentation.common.TopBar
 @Composable
 fun LoanHistoryScreen() {
 
-    Scaffold(topBar = { TopBar(title = "Loan History") }) {
+    Scaffold(topBar = { TopBar(title = "Loan History") }) { padding ->
 
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.background),
+                .padding(padding)
+                .background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.Center
         ) {
 
@@ -35,7 +36,7 @@ fun LoanHistoryScreen() {
                 Icon(
                     imageVector = Icons.Default.History,
                     contentDescription = null,
-                    tint = MaterialTheme.colors.primary
+                    tint = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 

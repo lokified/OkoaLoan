@@ -2,7 +2,7 @@ package com.loki.okoaloan.presentation.common
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -133,7 +133,7 @@ fun AltInput(
     if (isError) {
         Text(
             text = errorMessage,
-            color = MaterialTheme.colors.error,
+            color = MaterialTheme.colorScheme.error,
             fontSize = 12.sp
         )
     }
@@ -141,11 +141,12 @@ fun AltInput(
 
 @Composable
 fun textFieldColors(): TextFieldColors {
-    return TextFieldDefaults.textFieldColors(
-        backgroundColor = Color.Transparent,
-        focusedLabelColor = MaterialTheme.colors.primary,
-        focusedIndicatorColor = MaterialTheme.colors.primary,
-        unfocusedLabelColor = MaterialTheme.colors.onBackground,
-        unfocusedIndicatorColor = MaterialTheme.colors.onBackground
+    return TextFieldDefaults.colors(
+        focusedContainerColor = Color.Transparent,
+        unfocusedContainerColor = Color.Transparent,
+        focusedLabelColor = MaterialTheme.colorScheme.primary,
+        focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+        unfocusedLabelColor = MaterialTheme.colorScheme.onBackground,
+        unfocusedIndicatorColor = MaterialTheme.colorScheme.onBackground
     )
 }

@@ -1,41 +1,27 @@
 package com.loki.okoaloan.presentation.common
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(title: String) {
 
     TopAppBar(
-        backgroundColor = MaterialTheme.colors.primary,
-        elevation = 1.dp,
-
-        ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-
-            modifier = Modifier
-                .fillMaxSize()
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.Center
-        ) {
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+        ),
+        title = {
             Text(
                 text = title,
-                color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.Bold
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.Bold,
             )
-        }
-
-    }
+        },
+    )
 }

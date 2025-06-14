@@ -24,7 +24,7 @@ Android app for a loan application. User can sign up and login to the applicatio
 * Kotlin.
 * Hilt - for dependency injection.
 * Jetpack compose - for the Ui.
-* Firebase for user authetication.
+* Firebase for user authentication.
 
 ## Demo
 ### screenshots

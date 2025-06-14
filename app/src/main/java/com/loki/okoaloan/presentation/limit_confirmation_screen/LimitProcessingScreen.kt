@@ -3,9 +3,9 @@ package com.loki.okoaloan.presentation.limit_confirmation_screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
 import androidx.compose.runtime.Composable
@@ -23,12 +23,13 @@ fun LimitProcessingScreen(
     clearAndNavigate: (String) -> Unit
 ) {
 
-    Scaffold( topBar = { TopBar(title = "Limit Confirmation") } ) {
+    Scaffold( topBar = { TopBar(title = "Limit Confirmation") } ) { padding ->
 
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.background),
+                .padding(padding)
+                .background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.Center
         ) {
             LimitProcessingSection(

@@ -2,8 +2,8 @@ package com.loki.okoaloan.presentation.change_password
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dsc.form_builder.TextFieldState
 import com.loki.okoaloan.presentation.common.ButtonSection
 import com.loki.okoaloan.presentation.common.Input
@@ -21,15 +22,16 @@ import com.loki.okoaloan.presentation.common.TopBar
 
 @Composable
 fun ChangePasswordScreen() {
-    
-    Scaffold(topBar = { TopBar(title = "Change Password") }) {
-        
+
+    Scaffold(topBar = { TopBar(title = "Change Password") }) { padding ->
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.background)
+                .padding(padding)
+                .background(MaterialTheme.colorScheme.background)
         ) {
-            
+
             FormSection(
                 modifier = Modifier.padding(16.dp)
             )
@@ -37,12 +39,11 @@ fun ChangePasswordScreen() {
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FormSection(
     modifier: Modifier = Modifier
 ) {
-    val viewModel = ChangePasswordViewModel()
+    val viewModel = hiltViewModel<ChangePasswordViewModel>()
     val keyboardController = LocalSoftwareKeyboardController.current
     val formState = remember { viewModel.formState }
 

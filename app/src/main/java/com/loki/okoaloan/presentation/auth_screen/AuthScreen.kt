@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
@@ -32,14 +32,11 @@ fun AuthScreen(
     openAndPopUp: (String, String) -> Unit
 ) {
 
-    val scaffoldState = rememberScaffoldState()
-
     Scaffold(
         topBar = { TopBar(title = "Welcome") },
-        scaffoldState = scaffoldState
-    ) {
+    ) { padding ->
 
-        Box(modifier = Modifier.background(MaterialTheme.colors.background)) {
+        Box(modifier = Modifier.padding(padding).background(MaterialTheme.colorScheme.background)) {
             SignUpSection(openAndPopUp = openAndPopUp)
         }
     }
@@ -209,7 +206,7 @@ fun ToggleButton(
         "Login",
     ),
     onSelected: (String) -> Unit,
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit
 ) {
 
     var selectedOption by remember {
@@ -233,8 +230,8 @@ fun ToggleButton(
 
                 Text(
                     text = text,
-                    style = MaterialTheme.typography.body1,
-                    color = MaterialTheme.colors.onBackground,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier
                         .clip(RoundedCornerShape(100.dp))
                         .clickable {

@@ -3,7 +3,7 @@ package com.loki.okoaloan.presentation.loan_application
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.Absolute.Center
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dsc.form_builder.ChoiceState
 import com.dsc.form_builder.TextFieldState
@@ -26,12 +27,13 @@ fun LoanApplicationScreen(
 ) {
 
 
-    Scaffold( topBar = { TopBar(title = "Basic Information") }) {
+    Scaffold( topBar = { TopBar(title = "Basic Information") }) { padding ->
 
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.background)
+                .padding(padding)
+                .background(MaterialTheme.colorScheme.background)
         ) {
 
             BasicInfoForm(
@@ -49,7 +51,7 @@ fun BasicInfoForm(
     openScreen: (String) -> Unit
 ) {
 
-    val viewModel = LoanApplicationViewModel()
+    val viewModel = hiltViewModel<LoanApplicationViewModel>()
     val formState = remember{ viewModel.basicInfoState }
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -98,7 +100,7 @@ fun BasicInfoForm(
                             selected = gender.value == it,
                             onClick = { gender.change(it) },
                             colors = RadioButtonDefaults.colors(
-                                selectedColor = MaterialTheme.colors.primary
+                                selectedColor = MaterialTheme.colorScheme.primary
                             )
                         )
                         Text(text = it, fontSize = 16.sp)
@@ -112,7 +114,7 @@ fun BasicInfoForm(
                 Text(
                     text = gender.errorMessage,
                     fontSize = 12.sp,
-                    color = MaterialTheme.colors.error
+                    color = MaterialTheme.colorScheme.error
                 )
             }
         }
